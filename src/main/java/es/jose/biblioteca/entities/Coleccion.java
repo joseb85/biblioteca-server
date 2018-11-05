@@ -1,12 +1,17 @@
 package es.jose.biblioteca.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,8 +37,9 @@ public class Coleccion implements Serializable {
     @Size(min = 1, max = 64)
     @Column(nullable = false, length = 64)
     private String nombre;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "coleccion", fetch = FetchType.EAGER)
-//    private Collection<LibroColeccion> libroColeccionCollection;
+    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "coleccion", fetch = FetchType.EAGER)
+    private Set<LibroColeccion> libro;
 
     public Coleccion() {
     }
@@ -63,14 +69,13 @@ public class Coleccion implements Serializable {
         this.nombre = nombre;
     }
 
-//    @XmlTransient
-//    public Collection<LibroColeccion> getLibroColeccionCollection() {
-//        return libroColeccionCollection;
-//    }
-//
-//    public void setLibroColeccionCollection(Collection<LibroColeccion> libroColeccionCollection) {
-//        this.libroColeccionCollection = libroColeccionCollection;
-//    }
+    public Set<LibroColeccion> getLibro() {
+        return libro;
+    }
+
+    public void setLibro(Set<LibroColeccion> libro) {
+        this.libro = libro;
+    }
 
     @Override
     public int hashCode() {

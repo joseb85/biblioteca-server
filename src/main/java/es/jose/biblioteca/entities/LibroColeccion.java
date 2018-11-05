@@ -1,5 +1,7 @@
 package es.jose.biblioteca.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -33,9 +35,11 @@ public class LibroColeccion implements Serializable {
     @Size(min = 1, max = 8)
     @Column(nullable = false, length = 8)
     private String orden;
+    @JsonBackReference
     @JoinColumn(name = "id_libro", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Libro libro;
+    @JsonManagedReference
     @JoinColumn(name = "id_coleccion", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Coleccion coleccion;

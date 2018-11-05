@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -75,10 +77,12 @@ public class Libro implements Serializable {
     @JoinColumn(name = "id_genero", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Genero genero;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "libro", fetch = FetchType.EAGER)
-//    private Set<LibroColeccion> libroColeccionSet;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLibro", fetch = FetchType.EAGER)
-//    private Set<Lectura> lecturaSet;
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "libro", fetch = FetchType.EAGER)
+    private Set<LibroColeccion> colecciones;
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "libro", fetch = FetchType.EAGER)
+    private Set<Lectura> lecturas;
 
     public Libro() {
     }
@@ -131,6 +135,10 @@ public class Libro implements Serializable {
 
     public void setArchivo(boolean archivo) {
         this.archivo = archivo;
+    }
+
+    public boolean isArchivo() {
+        return archivo;
     }
 
     public Integer getPaginas() {
@@ -188,32 +196,23 @@ public class Libro implements Serializable {
     public void setAutores(Set<Autor> autores) {
         this.autores = autores;
     }
-//
-//    public Genero getIdGenero() {
-//        return idGenero;
-//    }
-//
-//    public void setIdGenero(Genero idGenero) {
-//        this.idGenero = idGenero;
-//    }
-//
-//    @XmlTransient
-//    public Set<LibroColeccion> getLibroColeccionSet() {
-//        return libroColeccionSet;
-//    }
-//
-//    public void setLibroColeccionSet(Set<LibroColeccion> libroColeccionSet) {
-//        this.libroColeccionSet = libroColeccionSet;
-//    }
-//
-//    @XmlTransient
-//    public Set<Lectura> getLecturaSet() {
-//        return lecturaSet;
-//    }
-//
-//    public void setLecturaSet(Set<Lectura> lecturaSet) {
-//        this.lecturaSet = lecturaSet;
-//    }
+
+    public Set<LibroColeccion> getColecciones() {
+        return colecciones;
+    }
+
+    public void setColecciones(Set<LibroColeccion> colecciones) {
+        this.colecciones = colecciones;
+    }
+
+    public Set<Lectura> getLecturas() {
+        return lecturas;
+    }
+
+    public void setLecturas(Set<Lectura> lecturas) {
+        this.lecturas = lecturas;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

@@ -1,5 +1,6 @@
 package es.jose.biblioteca.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -50,9 +51,10 @@ public class Lectura implements Serializable {
     @Size(min = 1, max = 16)
     @Column(nullable = false, length = 16)
     private String formato;
+    @JsonBackReference
     @JoinColumn(name = "id_libro", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Libro idLibro;
+    private Libro libro;
 
     public Lectura() {
     }
@@ -115,12 +117,12 @@ public class Lectura implements Serializable {
         this.formato = formato;
     }
 
-    public Libro getIdLibro() {
-        return idLibro;
+    public Libro getLibro() {
+        return libro;
     }
 
-    public void setIdLibro(Libro idLibro) {
-        this.idLibro = idLibro;
+    public void setLibro(Libro libro) {
+        this.libro = libro;
     }
 
     @Override

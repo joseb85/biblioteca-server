@@ -3,34 +3,40 @@ package es.jose.biblioteca.support;
 import java.util.List;
 
 /**
- * Clase utilizada para filtrar libros según unos parámetros
+ * Propiedades de los libros a filtrar
  * @since 04-nov-2018
  * @author joseb85
  */
 public class FiltroLibro {
-    /* Filtro para el nombre del libro */
+    /* Título de los libros para filtrar */
     private String titulo;
-    /* Filtro para el género del libro */
+    /* Géneros de los libros para filtrar */
     private List<Long> generos;
-    /* Filtro para el año del libro(desde este año) */
+    /* Año de los libros (desde este año) para filtrar */
     private Integer desdeAgno;
-    /* Filtro para el año del libro (hasta este año) */
+    /* Año de los libros (hasta este año) para filtrar */
     private Integer hastaAgno;
-    /* Filtro para las páginas del libro (desde esta página) */
+    /* Páginas de los libros (desde esta página) para filtrar */
     private Integer desdePaginas;
-    /* Filtro para las páginas del libro (hasta esta página) */
+    /* Páginas de los libros (hasta esta página) para filtrar */
     private Integer hastaPaginas;
-    /* Filtro para los autores del libro */
+    /* Autores de los libros para filtrar */
     private List<Long> autores;
+    /* Sexo de los autores para filtrar */
     private List<String> sexos;
+    /* País de los autores para filtrar */
     private List<Long> paises;
+    /* Continentes de los autores para filtrar */
     private List<String> continentes;
-    /* Filtro para los tags del libro */
+    /* Tags de los libros para filtrar */
     private List<Long> tags;
+    /* Colecciones de los libros para filtrar */
     private List<Long> colecciones;
+    /* Año de lectura de los libros (desde este año) para filtrar */
     private String desdeLectura;
+    /* Año de lectura de los libros (hasta este año) para filtrar */
     private String hastaLectura;
-    /* Operador para encadenar filtros. True: 'or', False: 'and'. Por defecto 'and'. */
+    /* Operador para encadenar los filtros. True: 'or', False: 'and'. Por defecto 'and'. */
     private Boolean or = false;
 
     public List<String> getSexos() {
