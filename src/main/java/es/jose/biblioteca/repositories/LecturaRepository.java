@@ -8,5 +8,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @since 28-oct-2018
  * @author joseb85
  */
-public interface LecturaRepository extends PagingAndSortingRepository<Lectura, Integer>{
+public interface LecturaRepository extends PagingAndSortingRepository<Lectura, Integer>, LecturaCustomRepository{
+    
 }

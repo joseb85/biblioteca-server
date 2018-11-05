@@ -30,5 +30,13 @@ public class LecturaService implements ServiceInterface<Lectura, Integer> {
         Optional<Lectura> result = lecturaRepository.findById(id);
         return result.isPresent() ? result.get() : null;
     }
+
+    /**
+     * Solicita el primer año de lectura
+     * @return Año más antiguo de lectura 
+     */
+    public String minYear() {
+        return lecturaRepository.minYear();
+    }
     
 }

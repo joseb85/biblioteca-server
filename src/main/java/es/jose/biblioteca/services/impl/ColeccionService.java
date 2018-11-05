@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @author joseb85
  */
 @Service
-public class ColeccionService implements ServiceInterface<Coleccion, Integer>{
+public class ColeccionService implements ServiceInterface<Coleccion, Long>{
     
     @Autowired
     private ColeccionRepository coleccionRepository;
@@ -26,7 +26,7 @@ public class ColeccionService implements ServiceInterface<Coleccion, Integer>{
     }
 
     @Override
-    public Coleccion findById(Integer id) {
+    public Coleccion findById(Long id) {
         Optional<Coleccion> result = coleccionRepository.findById(id);
         return result.isPresent() ? result.get() : null;
     }

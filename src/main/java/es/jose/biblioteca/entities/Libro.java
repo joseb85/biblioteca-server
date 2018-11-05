@@ -1,9 +1,9 @@
 package es.jose.biblioteca.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,17 +15,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Representa un libro
+ *
  * @since 28-oct-2018
  * @author joseb85
  */
@@ -59,27 +56,29 @@ public class Libro implements Serializable {
     @Size(max = 150)
     @Column(length = 150)
     private String fichero;
-    @Size(max = 32)
-    @Column(length = 32)
-    private String genero;
     @Size(max = 255)
     @Column(length = 255)
     private String observaciones;
-    
-//    @JoinTable(name = "libro_tag", joinColumns = {
-//        @JoinColumn(name = "id_libro", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-//        @JoinColumn(name = "id_tag", referencedColumnName = "id", nullable = false)})
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    private Collection<Tag> tagsCollection;
-//    @ManyToMany(mappedBy = "libroCollection", fetch = FetchType.EAGER)
-//    private Collection<Autor> autorCollection;
-//    @JoinColumn(name = "id_genero", referencedColumnName = "id")
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    private Genero idGenero;
+
+    @JsonManagedReference
+    @JoinTable(name = "libro_tag", joinColumns = {
+        @JoinColumn(name = "id_libro", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "id_tag", referencedColumnName = "id", nullable = false)})
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Tag> tags;
+    @JsonManagedReference
+    @JoinTable(name = "libro_autor", joinColumns = {
+        @JoinColumn(name = "id_libro", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "id_autor", referencedColumnName = "id", nullable = false)})
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Autor> autores;
+    @JoinColumn(name = "id_genero", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Genero genero;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "libro", fetch = FetchType.EAGER)
-//    private Collection<LibroColeccion> libroColeccionCollection;
+//    private Set<LibroColeccion> libroColeccionSet;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLibro", fetch = FetchType.EAGER)
-//    private Collection<Lectura> lecturaCollection;
+//    private Set<Lectura> lecturaSet;
 
     public Libro() {
     }
@@ -158,11 +157,11 @@ public class Libro implements Serializable {
         this.fichero = fichero;
     }
 
-    public String getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
@@ -173,24 +172,22 @@ public class Libro implements Serializable {
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
-//
-//    @XmlTransient
-//    public Collection<Tag> getTagsCollection() {
-//        return tagsCollection;
-//    }
-//
-//    public void setTagsCollection(Collection<Tag> tagsCollection) {
-//        this.tagsCollection = tagsCollection;
-//    }
-//
-//    @XmlTransient
-//    public Collection<Autor> getAutorCollection() {
-//        return autorCollection;
-//    }
-//
-//    public void setAutorCollection(Collection<Autor> autorCollection) {
-//        this.autorCollection = autorCollection;
-//    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public Set<Autor> getAutores() {
+        return autores;
+    }
+
+    public void setAutores(Set<Autor> autores) {
+        this.autores = autores;
+    }
 //
 //    public Genero getIdGenero() {
 //        return idGenero;
@@ -201,23 +198,22 @@ public class Libro implements Serializable {
 //    }
 //
 //    @XmlTransient
-//    public Collection<LibroColeccion> getLibroColeccionCollection() {
-//        return libroColeccionCollection;
+//    public Set<LibroColeccion> getLibroColeccionSet() {
+//        return libroColeccionSet;
 //    }
 //
-//    public void setLibroColeccionCollection(Collection<LibroColeccion> libroColeccionCollection) {
-//        this.libroColeccionCollection = libroColeccionCollection;
+//    public void setLibroColeccionSet(Set<LibroColeccion> libroColeccionSet) {
+//        this.libroColeccionSet = libroColeccionSet;
 //    }
 //
 //    @XmlTransient
-//    public Collection<Lectura> getLecturaCollection() {
-//        return lecturaCollection;
+//    public Set<Lectura> getLecturaSet() {
+//        return lecturaSet;
 //    }
 //
-//    public void setLecturaCollection(Collection<Lectura> lecturaCollection) {
-//        this.lecturaCollection = lecturaCollection;
+//    public void setLecturaSet(Set<Lectura> lecturaSet) {
+//        this.lecturaSet = lecturaSet;
 //    }
-
     @Override
     public int hashCode() {
         int hash = 0;

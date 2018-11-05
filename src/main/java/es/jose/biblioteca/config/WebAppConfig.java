@@ -3,26 +3,26 @@ package es.jose.biblioteca.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * Archivo principal de configuración de Spring
+ * Archivo de configuración de la app
  * @since 28-oct-2018
  * @author joseb85
  */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"es.jose.biblioteca"})
-@EnableJpaRepositories(basePackages = {"es.jose.biblioteca.repositories"})
-@EnableTransactionManagement
-@PropertySource("classpath:application.properties")
-public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
+public class WebAppConfig implements WebMvcConfigurer {
+    
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**");
+//    }
 
     /**
      * Permite el acceso a las vistas. Eliminar esto provoca un 404 al intentar

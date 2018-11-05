@@ -4,18 +4,11 @@ import javax.servlet.Filter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
- * Se configura el acceso a los controladores de Spring
- * <p>
- * En Spring MVC existen dos contextos de aplicación:
- * <p>
- * DispatcherServlet carga beans que contengan web components como
- * controladores, view resolvers o handler mappings
- * <p>
- * ContextLoaderListener cargar el resto de beans
+ * Archivo de inicialización de la app
  * @since 28-oct-2018
  * @author joseb85
  */
-public class ControllersConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 
     /**
@@ -26,7 +19,7 @@ public class ControllersConfig extends AbstractAnnotationConfigDispatcherServlet
      */
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{WebMvcConfiguration.class};
+        return new Class<?>[]{WebAppConfig.class};
     }
     
     
@@ -38,7 +31,7 @@ public class ControllersConfig extends AbstractAnnotationConfigDispatcherServlet
      */
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{WebMvcConfiguration.class};
+        return new Class<?>[]{WebRepositoryConfig.class/*, WebSecurityConfig.class*/ };
     }
 
     

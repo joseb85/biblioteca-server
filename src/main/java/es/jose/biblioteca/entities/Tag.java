@@ -1,5 +1,6 @@
 package es.jose.biblioteca.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -10,14 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Representa un tag de un libro
@@ -41,8 +39,9 @@ public class Tag implements Serializable {
     @Size(min = 1, max = 64)
     @Column(nullable = false, length = 64)
     private String nombre;
-//    @ManyToMany(mappedBy = "tagsCollection", fetch = FetchType.EAGER)
-//    private Collection<Libro> libroCollection;
+    @JsonBackReference
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER)
+    private Collection<Libro> libros;
 
     public Tag() {
     }
@@ -72,14 +71,13 @@ public class Tag implements Serializable {
         this.nombre = nombre;
     }
 
-//    @XmlTransient
-//    public Collection<Libro> getLibroCollection() {
-//        return libroCollection;
-//    }
-//
-//    public void setLibroCollection(Collection<Libro> libroCollection) {
-//        this.libroCollection = libroCollection;
-//    }
+    public Collection<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(Collection<Libro> libros) {
+        this.libros = libros;
+    }
 
     @Override
     public int hashCode() {

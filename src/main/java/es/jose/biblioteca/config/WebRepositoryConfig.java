@@ -15,7 +15,9 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Archivo de configuración de base de datos
@@ -23,8 +25,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @author joseb85
  */
 @Configuration
-@EnableJpaRepositories
-public class RepositoryConfiguration {
+@EnableJpaRepositories(basePackages = {"es.jose.biblioteca.repositories"})
+@EnableTransactionManagement
+@PropertySource("classpath:application.properties")
+public class WebRepositoryConfig {
     @Autowired
     private Environment env;
     
@@ -44,7 +48,6 @@ public class RepositoryConfiguration {
     @Bean
     public DataSource dataSource() throws Exception {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        
         System.out.println(env.getProperty( "es.jose.driverClassName" ));
         System.out.println(env.getProperty( "es.jose.url" ));
         System.out.println(env.getProperty( "es.jose.username" ));

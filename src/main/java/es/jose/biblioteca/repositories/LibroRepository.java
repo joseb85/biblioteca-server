@@ -8,6 +8,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @since 28-oct-2018
  * @author joseb85
  */
-public interface LibroRepository extends PagingAndSortingRepository<Libro, Long>{
+public interface LibroRepository extends PagingAndSortingRepository<Libro, Long>, LibroCustomRepository{
     
 }

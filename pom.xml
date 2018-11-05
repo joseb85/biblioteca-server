@@ -17,6 +17,7 @@
         <version.c3p0>0.9.1.2</version.c3p0>
         <version.c3p0-thin>0.9.0.2</version.c3p0-thin>
         <version.spring-core>5.1.1.RELEASE</version.spring-core>
+        <version.spring-security>5.1.1.RELEASE</version.spring-security>
         <version.spring-data-jpa>2.1.1.RELEASE</version.spring-data-jpa>
         <version.hibernate-jpa>1.0.2.Final</version.hibernate-jpa>
         <version.hibernate>5.3.7.Final</version.hibernate>
@@ -93,6 +94,23 @@
             <version>${version.spring-core}</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${version.spring-core}</version>
+        </dependency>
+        
+        <!-- SPRING SECURITY -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${version.spring-security}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${version.spring-security}</version>
+        </dependency>
         
         <!-- SPRING DATA-JPA -->
         <dependency>
@@ -117,6 +135,14 @@
             <artifactId>hibernate-c3p0</artifactId>
             <version>${version.hibernate}</version>
         </dependency>
+        <!-- Uso de Metamodel (se usan en los repositorios personalizados) -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>${version.hibernate}</version>
+            <scope>provided</scope>
+        </dependency>
+
 
         <!-- MAPEO JSON -->
         <dependency>

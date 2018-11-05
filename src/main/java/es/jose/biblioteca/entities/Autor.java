@@ -1,5 +1,6 @@
 package es.jose.biblioteca.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -10,17 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Representa el autor de un libro
@@ -47,11 +44,9 @@ public class Autor implements Serializable {
     @Size(max = 1)
     @Column(length = 1)
     private String sexo;
-//    @JoinTable(name = "libro_autor", joinColumns = {
-//        @JoinColumn(name = "id_autor", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-//        @JoinColumn(name = "id_libro", referencedColumnName = "id", nullable = false)})
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    private Collection<Libro> libroCollection;
+    @JsonBackReference
+    @ManyToMany(mappedBy = "autores", fetch = FetchType.EAGER)
+    private Collection<Libro> libros;
     @JoinColumn(name = "pais", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Pais pais;
@@ -92,14 +87,13 @@ public class Autor implements Serializable {
         this.sexo = sexo;
     }
 
-//    @XmlTransient
-//    public Collection<Libro> getLibroCollection() {
-//        return libroCollection;
-//    }
-//
-//    public void setLibroCollection(Collection<Libro> libroCollection) {
-//        this.libroCollection = libroCollection;
-//    }
+    public Collection<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(Collection<Libro> libros) {
+        this.libros = libros;
+    }
 
     public Pais getPais() {
         return pais;
