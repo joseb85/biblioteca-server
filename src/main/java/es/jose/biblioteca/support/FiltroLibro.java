@@ -1,6 +1,7 @@
 package es.jose.biblioteca.support;
 
 import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Propiedades de los libros a filtrar
@@ -38,7 +39,7 @@ public class FiltroLibro {
     private String hastaLectura;
     /* Operador para encadenar los filtros. True: 'or', False: 'and'. Por defecto 'and'. */
     private Boolean or = false;
-
+    Pageable pageable;
     public List<String> getSexos() {
         return sexos;
     }

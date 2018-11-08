@@ -58,11 +58,13 @@ public class LibroRepositoryImpl implements LibroCustomRepository {
         }
         //WHERE paginas BETWEEN ?1 AND ?2
         if (filtro.getDesdePaginas() != null && filtro.getHastaPaginas() != null) {
-            predicates.add(cb.between(root.get(Libro_.paginas), filtro.getDesdePaginas(), filtro.getHastaPaginas()));
+            Predicate predicate = cb.between(root.get(Libro_.paginas), filtro.getDesdePaginas(), filtro.getHastaPaginas());
+            predicates.add(predicate);
         }
         //WHERE agno BETWEEN ?1 AND ?2
         if (filtro.getDesdeAgno() != null && filtro.getHastaAgno() != null) {
-            predicates.add(cb.between(root.get(Libro_.agno), filtro.getDesdeAgno(), filtro.getHastaAgno()));
+            Predicate predicate = cb.between(root.get(Libro_.agno), filtro.getDesdeAgno(), filtro.getHastaAgno());
+            predicates.add(predicate);
         }
         //WHERE tags IN ()
         if (filtro.getTags() != null && !filtro.getTags().isEmpty()) {
@@ -96,7 +98,8 @@ public class LibroRepositoryImpl implements LibroCustomRepository {
         }
         //WHERE lecturas.agno BETWEEN ?1 AND ?2
         if (filtro.getDesdeLectura() != null && filtro.getHastaLectura() != null) {
-            predicates.add(cb.between(root.join(Libro_.lecturas, JoinType.LEFT).get(Lectura_.agno), filtro.getDesdeLectura(), filtro.getHastaLectura()));
+            Predicate predicate = cb.between(root.join(Libro_.lecturas, JoinType.LEFT).get(Lectura_.agno), filtro.getDesdeLectura(), filtro.getHastaLectura());
+            predicates.add(predicate);
         }
         //Seleccionamos el OR o el AND en la cláusula WHERE
         if (filtro.getOr() != null && filtro.getOr()) {
